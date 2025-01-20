@@ -1,5 +1,5 @@
 {
-	"name": "editor",
+	"name": "@agnosticeng/editor",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",

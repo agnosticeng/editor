@@ -1,58 +1,102 @@
-# create-svelte
+# @agnosticeng/editor
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+A Svelte 5 component wrapping CodeMirror 6 editor with sensible defaults.
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+## Installation
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+```sh
+npm install @agnosticeng/editor
 ```
 
-## Developing
+## Usage
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```svelte
+<script>
+	import { Editor } from '@agnosticeng/editor';
 
-```bash
-npm run dev
+	// Optional: Add CodeMirror extensions
+	import { sql, PostgreSQL } from '@codemirror/lang-sql';
+	const extensions = [sql({ dialect: PostgreSQL })];
+</script>
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+<Editor value="Initial text" placeholder="Enter text..." {extensions} />
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+## Props
 
-## Building
+| Name          | Type                                                              | Default | Description                                                    |
+| ------------- | ----------------------------------------------------------------- | ------- | -------------------------------------------------------------- |
+| `value`       | `string`                                                          | `''`    | The editor content                                             |
+| `placeholder` | `string`                                                          | `''`    | Placeholder text shown when editor is empty                    |
+| `extensions`  | [`Extension[]`](https://codemirror.net/docs/ref/#state.Extension) | `[]`    | Array of CodeMirror extensions to enhance editor functionality |
 
-To build your library:
+## Methods
 
-```bash
-npm run package
+| Name     | Returns                                                          | Description                                           |
+| -------- | ---------------------------------------------------------------- | ----------------------------------------------------- |
+| `view()` | [`EditorView`](https://codemirror.net/docs/ref/#view.EditorView) | Returns the underlying CodeMirror EditorView instance |
+
+## Default Features
+
+- Line numbers
+- Bracket matching and auto-closing
+- Multi-cursor support
+- Tab/indent management
+- Code folding
+- History (undo/redo)
+- Code commenting (Cmd/Ctrl + Shift + /)
+
+## CSS Customization
+
+The editor exposes standard CodeMirror CSS classes that can be styled:
+
+```css
+.cm-editor {
+	/* Editor container */
+}
+.cm-content {
+	/* Editing area */
+}
+.cm-gutters {
+	/* Line number gutters */
+}
+.cm-tooltip {
+	/* Tooltips (e.g. autocomplete) */
+}
 ```
 
-To create a production version of your showcase app:
+## Contributing
 
-```bash
-npm run build
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feat/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: Add some amazing feature'`)
+4. Push to the branch (`git push origin feat/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see below for details:
+
 ```
+MIT License
 
-You can preview the production build with `npm run preview`.
+Copyright (c) 2024 Agnostic
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-## Publishing
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 ```
