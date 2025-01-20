@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { PostgreSQL, sql, type SQLDialect, type SQLNamespace } from '@codemirror/lang-sql';
 	import { Compartment, EditorState, type Extension } from '@codemirror/state';
 	import { EditorView, placeholder as _placeholder } from '@codemirror/view';
 	import { untrack } from 'svelte';
@@ -12,11 +13,20 @@
 		value?: string;
 		placeholder?: string;
 		extensions?: Extension[];
+		dialect?: SQLDialect;
+		schema?: SQLNamespace;
 	}
 
-	let { value = $bindable(''), placeholder = '', extensions = [] }: Props = $props();
+	let {
+		value = $bindable(''),
+		dialect = PostgreSQL,
+		schema,
+		placeholder = '',
+		extensions = []
+	}: Props = $props();
 
 	const placeholderCompartment = new Compartment();
+	const langCompartment = new Compartment();
 
 	$effect(() => {
 		if (!container) return;
@@ -28,6 +38,7 @@
 			extensions: [
 				...defaultExtensions,
 				placeholderCompartment.of(_placeholder(untrack(() => placeholder))),
+				langCompartment.of(sql({ dialect: untrack(() => dialect), schema: untrack(() => schema) })),
 				...untrack(() => extensions)
 			]
 		});
@@ -49,9 +60,9 @@
 			editorView?.dispatch({ changes: { from: 0, to: existing.length, insert: value } });
 	});
 
-	export function view() {
-		return editorView;
-	}
+	$effect(() =>
+		editorView?.dispatch({ effects: langCompartment.reconfigure(sql({ dialect, schema })) })
+	);
 </script>
 
 <div bind:this={container}></div>

@@ -12,32 +12,32 @@ npm install @agnosticeng/editor
 
 ```svelte
 <script>
-	import { Editor } from '@agnosticeng/editor';
+	import Editor from '@agnosticeng/editor';
 
-	// Optional: Add CodeMirror extensions
-	import { sql, PostgreSQL } from '@codemirror/lang-sql';
-	const extensions = [sql({ dialect: PostgreSQL })];
+	// Optional: Configure SQL dialect and schema
+	import { SQLite } from '@codemirror/lang-sql';
+
+	const schema = {
+		table_name: [{ type: 'property', label: 'column', detail: 'TYPE' }]
+	};
 </script>
 
-<Editor value="Initial text" placeholder="Enter text..." {extensions} />
+<Editor placeholder="Enter text..." dialect={SQLite} {schema} />
 ```
 
 ## Props
 
-| Name          | Type                                                              | Default | Description                                                    |
-| ------------- | ----------------------------------------------------------------- | ------- | -------------------------------------------------------------- |
-| `value`       | `string`                                                          | `''`    | The editor content                                             |
-| `placeholder` | `string`                                                          | `''`    | Placeholder text shown when editor is empty                    |
-| `extensions`  | [`Extension[]`](https://codemirror.net/docs/ref/#state.Extension) | `[]`    | Array of CodeMirror extensions to enhance editor functionality |
-
-## Methods
-
-| Name     | Returns                                                          | Description                                           |
-| -------- | ---------------------------------------------------------------- | ----------------------------------------------------- |
-| `view()` | [`EditorView`](https://codemirror.net/docs/ref/#view.EditorView) | Returns the underlying CodeMirror EditorView instance |
+| Name          | Type                                                                               | Default      | Description                                 |
+| ------------- | ---------------------------------------------------------------------------------- | ------------ | ------------------------------------------- |
+| `value`       | `string`                                                                           | `''`         | The editor content                          |
+| `placeholder` | `string`                                                                           | `''`         | Placeholder text shown when editor is empty |
+| `extensions`  | [`Extension[]`](https://codemirror.net/docs/ref/#state.Extension)                  | `[]`         | Array of CodeMirror extensions              |
+| `dialect`     | [`SQLDialect`](https://github.com/codemirror/lang-sql#user-content-sqldialect)     | `PostgreSQL` | SQL dialect for syntax highlighting         |
+| `schema`      | [`SQLNamespace`](https://github.com/codemirror/lang-sql#user-content-sqlnamespace) | `undefined`  | Schema definition for SQL autocompletion    |
 
 ## Default Features
 
+- SQL syntax highlighting and autocompletion
 - Line numbers
 - Bracket matching and auto-closing
 - Multi-cursor support

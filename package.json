@@ -34,13 +34,13 @@
 	"peerDependencies": {
 		"@codemirror/autocomplete": "^6.18.4",
 		"@codemirror/commands": "^6.8.0",
+		"@codemirror/lang-sql": "^6.8.0",
 		"@codemirror/language": "^6.10.8",
 		"@codemirror/state": "^6.5.1",
 		"@codemirror/view": "^6.36.2",
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
-		"@codemirror/lang-sql": "^6.8.0",
 		"@sveltejs/adapter-cloudflare": "^4.8.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/package": "^2.0.0",

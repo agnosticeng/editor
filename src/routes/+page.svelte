@@ -1,20 +1,26 @@
-<script>
+<script lang="ts">
 	import Editor from '$lib/Editor.svelte';
-	import { PostgreSQL, sql } from '@codemirror/lang-sql';
-	import { EditorView } from '@codemirror/view';
-	import './editor.css';
+	import { SQLite, type SQLNamespace } from '@codemirror/lang-sql';
 
-	const extensions = [sql({ dialect: PostgreSQL }), EditorView.darkTheme.of(true)];
+	const schema: SQLNamespace = {
+		sqlite_master: [
+			{ type: 'property', label: 'type', detail: 'TEXT' },
+			{ type: 'property', label: 'name', detail: 'TEXT' },
+			{ type: 'property', label: 'tbl_name', detail: 'TEXT' },
+			{ type: 'property', label: 'rootpage', detail: 'INT' },
+			{ type: 'property', label: 'sql', detail: 'TEXT' }
+		]
+	};
 </script>
 
-<Editor placeholder="Enter text..." {extensions} />
+<Editor placeholder="Enter text..." dialect={SQLite} {schema} />
 
 <style>
 	:root {
 		color-scheme: dark only;
 	}
 
-	:global(html, body) {
+	:global(html, body, #root) {
 		height: 100%;
 		width: 100%;
 	}

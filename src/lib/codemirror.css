@@ -3,6 +3,7 @@
 	width: 100%;
 	font-size: 11px;
 	line-height: 1.5;
+	background-color: hsl(0deg 0% 5%);
 }
 
 .cm-editor.cm-focused {
@@ -17,6 +18,8 @@
 	border: none;
 	user-select: none;
 	-webkit-user-select: none;
+	background-color: hsl(0deg 0% 5%);
+	color: hsl(0deg 0% 40%);
 }
 
 .cm-editor .cm-scroller {
@@ -31,6 +34,7 @@
 
 .cm-editor .cm-tooltip {
 	border: none;
+	background-color: hsl(236deg 15% 20%);
 }
 
 .cm-editor .cm-tooltip.cm-tooltip-autocomplete > ul {
