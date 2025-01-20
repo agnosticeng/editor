@@ -48,6 +48,10 @@
 		if (value !== existing)
 			editorView?.dispatch({ changes: { from: 0, to: existing.length, insert: value } });
 	});
+
+	export function view() {
+		return editorView;
+	}
 </script>
 
 <div bind:this={container}></div>
