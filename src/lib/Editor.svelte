@@ -37,6 +37,9 @@
 			doc: untrack(() => value),
 			extensions: [
 				...defaultExtensions,
+				EditorView.updateListener.of((update) => {
+					if (update.docChanged) value = update.state.doc.toString();
+				}),
 				placeholderCompartment.of(_placeholder(untrack(() => placeholder))),
 				langCompartment.of(sql({ dialect: untrack(() => dialect), schema: untrack(() => schema) })),
 				...untrack(() => extensions)
