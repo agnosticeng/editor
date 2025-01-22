@@ -1,19 +1,9 @@
 <script lang="ts">
+	import { ClickHouseDialect } from '$lib/dialect/index.js';
 	import Editor from '$lib/Editor.svelte';
-	import { SQLite, type SQLNamespace } from '@codemirror/lang-sql';
-
-	const schema: SQLNamespace = {
-		sqlite_master: [
-			{ type: 'property', label: 'type', detail: 'TEXT' },
-			{ type: 'property', label: 'name', detail: 'TEXT' },
-			{ type: 'property', label: 'tbl_name', detail: 'TEXT' },
-			{ type: 'property', label: 'rootpage', detail: 'INT' },
-			{ type: 'property', label: 'sql', detail: 'TEXT' }
-		]
-	};
 </script>
 
-<Editor placeholder="Enter text..." dialect={SQLite} {schema} />
+<Editor placeholder="Enter text..." dialect={ClickHouseDialect} />
 
 <style>
 	:root {
