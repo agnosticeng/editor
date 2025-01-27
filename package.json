@@ -33,6 +33,9 @@
 		"./dialect": {
 			"types": "./dist/dialect/index.d.ts",
 			"svelte": "./dist/dialect/index.js"
+		},
+		"./style.css": {
+			"default": "./dist/codemirror.css"
 		}
 	},
 	"peerDependencies": {

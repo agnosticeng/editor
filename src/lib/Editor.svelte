@@ -3,7 +3,6 @@
 	import { Compartment, EditorState, type Extension } from '@codemirror/state';
 	import { EditorView, placeholder as _placeholder } from '@codemirror/view';
 	import { untrack } from 'svelte';
-	import './codemirror.css';
 	import { defaultExtensions } from './extensions.js';
 
 	let container: HTMLDivElement;
