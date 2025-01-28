@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { ClickHouseDialect } from '$lib/dialect/index.js';
 	import Editor from '$lib/Editor.svelte';
+
+	let value = $state('');
 </script>
 
-<Editor placeholder="Enter text..." dialect={ClickHouseDialect} scrollPastEnd />
+<Editor placeholder="Enter text..." dialect={ClickHouseDialect} scrollPastEnd bind:value />
 
 <style>
 	:root {
