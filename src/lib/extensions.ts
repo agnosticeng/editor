@@ -42,6 +42,5 @@ export const defaultExtensions = [
 	EditorState.allowMultipleSelections.of(true),
 	EditorView.darkTheme.of(true),
 	drawSelection(),
-	theme,
 	keymaps
 ];

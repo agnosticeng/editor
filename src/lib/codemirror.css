@@ -23,7 +23,7 @@
 }
 
 .cm-editor .cm-scroller {
-	font-family: Menlo, Consolas, monospace;
+	font-family: monospace;
 	line-height: inherit;
 }
 
@@ -38,10 +38,7 @@
 }
 
 .cm-editor .cm-tooltip.cm-tooltip-autocomplete > ul {
-	font:
-		11px/1.5 Menlo,
-		Consolas,
-		monospace;
+	font: 11px/1.5 monospace;
 	border-radius: 8px;
 	box-shadow: 0 8px 30px hsl(0deg 0% 0% / 0.12);
 	max-height: 264px;
