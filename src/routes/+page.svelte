@@ -3,7 +3,7 @@
 	import Editor from '$lib/Editor.svelte';
 </script>
 
-<Editor placeholder="Enter text..." dialect={ClickHouseDialect} />
+<Editor placeholder="Enter text..." dialect={ClickHouseDialect} scrollPastEnd />
 
 <style>
 	:root {

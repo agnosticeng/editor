@@ -9,10 +9,10 @@ import {
 } from '@codemirror/commands';
 import { bracketMatching, indentUnit } from '@codemirror/language';
 import { EditorState } from '@codemirror/state';
-import { drawSelection, EditorView, keymap, lineNumbers, scrollPastEnd } from '@codemirror/view';
+import { drawSelection, EditorView, keymap, lineNumbers } from '@codemirror/view';
 import { theme } from './theme.js';
 
-const keymaps = keymap.of([
+export const keymaps = keymap.of([
 	// Mod-Enter is reserve for query execution
 	...defaultKeymap.filter((binding) => binding.key !== 'Mod-Enter'),
 	// default is Mod-/ and it works fine on querty keyboard but not on azerty.
@@ -37,7 +37,6 @@ export const defaultExtensions = [
 	autocompletion(),
 	bracketMatching(),
 	closeBrackets(),
-	scrollPastEnd(),
 	EditorState.tabSize.of(2),
 	indentUnit.of('\t'),
 	EditorState.allowMultipleSelections.of(true),

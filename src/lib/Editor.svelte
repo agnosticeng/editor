@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PostgreSQL, sql, type SQLDialect, type SQLNamespace } from '@codemirror/lang-sql';
 	import { Compartment, EditorState, type Extension } from '@codemirror/state';
-	import { EditorView, placeholder as _placeholder } from '@codemirror/view';
+	import { EditorView, placeholder as _placeholder, scrollPastEnd } from '@codemirror/view';
 	import { untrack } from 'svelte';
 	import { defaultExtensions } from './extensions.js';
 
@@ -14,6 +14,7 @@
 		extensions?: Extension[];
 		dialect?: SQLDialect;
 		schema?: SQLNamespace;
+		scrollPastEnd?: boolean;
 	}
 
 	let {
@@ -21,11 +22,13 @@
 		dialect = PostgreSQL,
 		schema,
 		placeholder = '',
-		extensions = []
+		extensions = [],
+		scrollPastEnd: enableScrollPastEnd = false
 	}: Props = $props();
 
 	const placeholderCompartment = new Compartment();
 	const langCompartment = new Compartment();
+	const scrollPastEndCompartment = new Compartment();
 
 	$effect(() => {
 		if (!container) return;
@@ -36,6 +39,7 @@
 			doc: untrack(() => value),
 			extensions: [
 				...defaultExtensions,
+				scrollPastEndCompartment.of(untrack(() => (enableScrollPastEnd ? scrollPastEnd() : []))),
 				EditorView.updateListener.of((update) => {
 					if (update.docChanged) value = update.state.doc.toString();
 				}),
@@ -65,6 +69,12 @@
 	$effect(() =>
 		editorView?.dispatch({ effects: langCompartment.reconfigure(sql({ dialect, schema })) })
 	);
+
+	$effect(() => {
+		editorView?.dispatch({
+			effects: scrollPastEndCompartment.reconfigure(enableScrollPastEnd ? scrollPastEnd() : [])
+		});
+	});
 </script>
 
 <div bind:this={container}></div>
